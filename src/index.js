@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 
 import './index.css';
 import App from './components/App';
-import movies from './reducers';
+import combineReducers from './reducers';
 
-const store = createStore(movies);
+const logger = function({dispatch, getState}){
+  return function(next){
+    return function(action){
+      console.log("ACTION_TYPE",action.type);
+      next(action);
+    }
+  }
+}
+
+const store = createStore(combineReducers,applyMiddleware(logger));
 console.log(store);
 // console.log("Before State", store.getState());
 

@@ -43,7 +43,7 @@ class App extends React.Component {
     // const { list,favourites,showFavourites } = this.props.store.getState(); //{list: [], favourite: []} , these are present in store state
     
     //after using root reducer
-    const{movies} = this.props.store.getState();
+    const{movies,search} = this.props.store.getState();
     const { list,favourites,showFavourites } = movies;
     
     console.log('RENDER',this.props.store.getState());
@@ -51,7 +51,7 @@ class App extends React.Component {
     const displayMovies = showFavourites ? favourites : list
     return (
       <div className="App">
-          <Navbar />
+          <Navbar dispatch={this.props.store.dispatch} search={search} />
           <div className="main">
 
               <div className="tabs">
